@@ -41,8 +41,10 @@ class GalleryPictureController extends Controller
     {
         $extension = pathinfo($galleryPicture->picture_path, PATHINFO_EXTENSION);
         $filename = 'memory-'.$galleryPicture->id.'.'.$extension;
+        /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+        $disk = Storage::disk('r2');
 
-        return redirect()->away(Storage::disk('r2')->temporaryUrl($galleryPicture->picture_path, now()->addMinutes(10), [
+        return redirect()->away($disk->temporaryUrl($galleryPicture->picture_path, now()->addMinutes(10), [
             'ResponseContentDisposition' => 'attachment; filename="'.$filename.'"',
         ]))->header('Cache-Control', 'private, no-store');
     }
@@ -68,7 +70,10 @@ class GalleryPictureController extends Controller
 
     public function show(GalleryPicture $galleryPicture): RedirectResponse
     {
-        return redirect()->away(Storage::disk('r2')->temporaryUrl($galleryPicture->picture_path, now()->addMinutes(10)))
+        /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+        $disk = Storage::disk('r2');
+
+        return redirect()->away($disk->temporaryUrl($galleryPicture->picture_path, now()->addMinutes(10)))
             ->header('Cache-Control', 'private, no-store');
     }
 

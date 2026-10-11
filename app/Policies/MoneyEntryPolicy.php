@@ -9,7 +9,7 @@ class MoneyEntryPolicy
 {
     public function update(User $user, MoneyEntry $moneyEntry): bool
     {
-        return $user->id === $moneyEntry->user_id;
+        return (int) $user->id === (int) $moneyEntry->user_id;
     }
 
     public function delete(User $user, MoneyEntry $moneyEntry): bool

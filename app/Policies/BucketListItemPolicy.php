@@ -9,7 +9,7 @@ class BucketListItemPolicy
 {
     public function update(User $user, BucketListItem $bucketListItem): bool
     {
-        return $user->id === $bucketListItem->user_id;
+        return (int) $user->id === (int) $bucketListItem->user_id;
     }
 
     public function delete(User $user, BucketListItem $bucketListItem): bool

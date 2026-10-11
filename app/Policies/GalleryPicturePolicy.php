@@ -9,7 +9,7 @@ class GalleryPicturePolicy
 {
     public function update(User $user, GalleryPicture $galleryPicture): bool
     {
-        return $user->id === $galleryPicture->user_id;
+        return (int) $user->id === (int) $galleryPicture->user_id;
     }
 
     public function delete(User $user, GalleryPicture $galleryPicture): bool
